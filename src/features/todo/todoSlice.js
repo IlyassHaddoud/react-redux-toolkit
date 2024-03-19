@@ -4,7 +4,7 @@ const initialState = {
   todos: [],
 };
 
-export const todoSlice = createSlice({
+const todoSlice = createSlice({
   name: "todo",
   initialState,
   reducers: {

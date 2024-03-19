@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 
 const App = () => {
   const [input, setInput] = useState("");
-  const todos = useSelector((state) => state.todos);
+  const todos = useSelector((state) => state.todoReducer.todos);
   const dispatch = useDispatch();
 
   return (
