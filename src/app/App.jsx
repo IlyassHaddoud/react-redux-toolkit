@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { addTodo } from "./features/todo/todoSlice";
+import { addTodo } from "../features/todo/todoSlice";
 import { useDispatch, useSelector } from "react-redux";
 
 const App = () => {
@@ -11,8 +11,9 @@ const App = () => {
     <div className="app">
       {todos.map((todo) => (
         <div key={todo.id} className="flex">
-          <p>{todo.content}</p>
-          <p>{todo.done}</p>
+          <p>{todo.user}</p>
+          <p>{todo.title}</p>
+          <p>{todo.completed}</p>
         </div>
       ))}
       <div>

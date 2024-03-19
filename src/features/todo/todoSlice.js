@@ -2,6 +2,8 @@ import { createSlice, nanoid } from "@reduxjs/toolkit";
 
 const initialState = {
   todos: [],
+  loading: false,
+  error: null,
 };
 
 const todoSlice = createSlice({
@@ -10,9 +12,10 @@ const todoSlice = createSlice({
   reducers: {
     addTodo: (state, action) => {
       const newTodo = {
+        user: "ilyass",
         id: nanoid(),
-        content: action.payload,
-        done: false,
+        title: action.payload,
+        completed: false,
       };
       state.todos.push(newTodo);
     },
