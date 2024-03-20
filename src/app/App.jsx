@@ -1,22 +1,34 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { addTodo } from "../features/todo/todoSlice";
 import { useDispatch, useSelector } from "react-redux";
+import fetchTodos from "../features/todo/todoApi";
 
 const App = () => {
   const [input, setInput] = useState("");
   const todos = useSelector((state) => state.todoReducer.todos);
+  const isLoading = useSelector((state) => state.todoReducer.isLoading);
+  const error = useSelector((state) => state.todoReducer.error);
   const dispatch = useDispatch();
 
+  useEffect(() => {
+    dispatch(fetchTodos());
+  }, [dispatch]);
+
   return (
-    <div className="app">
+    <div className="app flex justify-center items-center flex-col gap-10 h-screen">
+      {isLoading && <p>Loading...</p>}
+      {error && <p>{error}</p>}
       {todos.map((todo) => (
-        <div key={todo.id} className="flex">
-          <p>{todo.user}</p>
-          <p>{todo.title}</p>
-          <p>{todo.completed}</p>
+        <div
+          key={todo.id}
+          className="flex flex-col justify-center items-center"
+        >
+          <p>{"user: " + todo.userId}</p>
+          <p>{"title: " + todo.title}</p>
+          <p>{"todo: " + todo.completed}</p>
         </div>
       ))}
-      <div>
+      <div className="flex flex-col justify-center items-center">
         <input
           className="border-4 border-black"
           type="text"

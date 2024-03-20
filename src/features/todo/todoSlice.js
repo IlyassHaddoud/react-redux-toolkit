@@ -1,8 +1,9 @@
 import { createSlice, nanoid } from "@reduxjs/toolkit";
+import fetchTodos from "./todoApi";
 
 const initialState = {
   todos: [],
-  loading: false,
+  isLoading: false,
   error: null,
 };
 
@@ -12,13 +13,26 @@ const todoSlice = createSlice({
   reducers: {
     addTodo: (state, action) => {
       const newTodo = {
-        user: "ilyass",
+        userId: "ilyass",
         id: nanoid(),
         title: action.payload,
         completed: false,
       };
       state.todos.push(newTodo);
     },
+  },
+  extraReducers: (builder) => {
+    builder.addCase(fetchTodos.pending, (state) => {
+      state.isLoading = true;
+    });
+    builder.addCase(fetchTodos.fulfilled, (state, action) => {
+      state.isLoading = false;
+      state.todos = action.payload;
+    });
+    builder.addCase(fetchTodos.rejected, (state, action) => {
+      state.isLoading = false;
+      state.error = action.error.message;
+    });
   },
 });
 
